@@ -1,0 +1,38 @@
+<div class="profile-container">
+  @if (currentUser$ | async; as user) {
+    <div class="profile-card">
+      <div class="header-info">
+        <span class="icon">👊</span>
+        <h2>FIGHTER PROFILE</h2>
+      </div>
+      
+      <div class="detail-group">
+        <label>Status</label>
+        <p class="status-active">LOGGED IN</p>
+      </div>
+
+      <div class="detail-group">
+        <label>Octagon Email</label>
+        <p>{{ user.email }}</p>
+      </div>
+      
+      <div class="detail-group">
+        <label>Fighter UID</label>
+        <p class="uid">{{ user.uid }}</p>
+      </div>
+      
+      <div class="detail-group">
+        <label>Current Status</label>
+        <p>Awaiting Title Bout</p>
+      </div>
+      
+      <button (click)="onLogout()" class="logout-button">
+        LOGOUT
+      </button>
+    </div>
+  } @else {
+    <div class="loading-message">
+      <p>Redirecting to login...</p>
+    </div>
+  }
+</div>

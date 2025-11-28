@@ -1,0 +1,53 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="header">
+      <h2>OCTAGON ACCESS</h2>
+      <p>ENTER YOUR FIGHTER ID</p>
+    </div>
+
+    <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+      
+      @if (errorMessage) {
+        <div class="error-banner">{{ errorMessage }}</div>
+      }
+
+      <div class="form-group">
+        <label for="email">OCTAGON EMAIL</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="email" 
+          required 
+          autocomplete="off"
+          placeholder="champion@ufc.com"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">PASSCODE</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          [(ngModel)]="password" 
+          required 
+          placeholder="••••••••"
+        >
+      </div>
+
+      <button type="submit" [disabled]="!loginForm.valid || loading">
+        @if (loading) {
+          <span class="spinner"></span>
+          <span>ACCESSING...</span>
+        } @else {
+          <span>LOG IN</span>
+        }
+      </button>
+    </form>
+    
+    <div class="switch-auth">
+      Don't have a fighter profile? <a [routerLink]="['/signup']">Sign Up</a>
+    </div>
+  </div>
+</div>

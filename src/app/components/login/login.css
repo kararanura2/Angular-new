@@ -1,0 +1,146 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  padding: 20px;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+.auth-card {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-top: 4px solid #f62828; 
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h2 {
+  color: #fff;
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.header p {
+  color: #f62828;
+  font-size: 0.75rem;
+  margin-top: 5px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  color: #aaa;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+input {
+  width: 100%;
+  background-color: #000;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 12px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s;
+  border-radius: 4px;
+}
+
+input:focus {
+  border-color: #f62828;
+}
+
+button {
+  width: 100%;
+  background-color: #f62828;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+button:hover:not([disabled]) {
+  background-color: #d02020;
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.error-banner {
+  background-color: rgba(246, 40, 40, 0.1);
+  border: 1px solid #f62828;
+  color: #f62828;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.switch-auth {
+  margin-top: 25px;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.switch-auth a {
+  color: #f62828;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.switch-auth a:hover {
+  text-decoration: underline;
+}
+
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

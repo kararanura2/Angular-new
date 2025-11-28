@@ -1,0 +1,41 @@
+<a 
+  class="card-link"
+  [routerLink]="['/fighters', fighter.id]" 
+  (click)="viewDetails()">
+  
+  <div class="card">
+    <!-- Image Wrapper -->
+    <div class="image-container">
+      <img [src]="fighter.imgUrl" alt="{{ fighter.name }}" loading="lazy">
+      
+      @if (fighter.status) {
+        <span class="status" [class.active]="fighter.status.toLowerCase() === 'active'">
+          {{ fighter.status }}
+        </span>
+      }
+    </div>
+
+    <div class="info">
+      <h3 class="name">
+        {{ fighter.name }} 
+        @if (fighter.nickname) {
+          <span class="nickname">"{{ fighter.nickname }}"</span>
+        }
+      </h3>
+      
+      <p class="division">{{ fighter.category }}</p>
+      
+      <div class="record">
+        <span class="label">Record</span>
+        <span class="numbers">
+          {{ fighter.wins }}-{{ fighter.losses }}-{{ fighter.draws }}
+        </span>
+      </div>
+      
+      <!-- FIX: This is a DIV, acting purely as the visual button for the parent link -->
+      <div class="details-button">
+        VIEW DETAILS →
+      </div>
+    </div>
+  </div>
+</a>
