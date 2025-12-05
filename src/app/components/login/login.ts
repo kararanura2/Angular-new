@@ -43,6 +43,9 @@ export class Login {
       error: (error: string) => {
         this.errorMessage = error;
         this.loading = false;
+        this.email  = '';
+        this.password = '';
+
       },
       complete: () => {
         this.loading = false;

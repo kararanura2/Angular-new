@@ -4,7 +4,6 @@ import { FightersList } from './components/fighters-list/fighters-list';
 import { FighterDetails } from './components/fighter-details/fighter-details';
 import { Home } from './components/home/home';
 import { Login } from './components/login/login';
-
 import { Signup } from './components/signup/signup';
 import { Profile } from './components/profile/profile';
 import { authGuard } from './services/auth.guard';
@@ -17,7 +16,6 @@ export const routes: Routes = [
     { path: 'fighters/:id', redirectTo: '/fighter/:id', pathMatch: 'full' },
     // { path: '', redirectTo: '/home', component: Home},
     // { path: '**', redirectTo: '/home'},
-
     { path: 'login', component: Login},
     { path: 'signup', component: Signup},
     { path: 'profile', component: Profile, canActivate: [authGuard]},

@@ -1,12 +1,14 @@
 <div class="list-container">
   <div class="header">
     <h2>Fighter Roster</h2>
-    
-    <input 
-      type="text" 
-      placeholder="SEARCH FIGHTER..." 
+
+    <input
+      type="text"
+      placeholder="SEARCH FIGHTER..."
       class="ufc-input"
-      [(ngModel)]="searchQuery">
+      [ngModel]="searchQuery"
+      (ngModelChange)="onSearchChange($event)"
+    />
   </div>
 
   @if (loading) {
@@ -14,16 +16,21 @@
       <span class="spinner">🥊</span> Loading Octagon Data...
     </div>
   } @else {
-    
-    <div class="grid">
-      @for (f of filteredFighters; track f.id) {
-        <app-fighter-card 
-          [fighter]="f" 
-          (cardClicked)="goToDetails($event)">
-        </app-fighter-card>
-      } @empty {
-        <p class="no-results">No fighters found matching your search criteria.</p>
+    @if (error) {
+      <p class="no-results">⚠ Could not load fighters.</p>
+    } @else {
+      @if (fighters$ | async; as fighters) {
+        <div class="grid">
+          @for (f of fighters; track f.id) {
+            <app-fighter-card
+              [fighter]="f"
+              (cardClicked)="goToDetails($event)">
+            </app-fighter-card>
+          } @empty {
+            <p class="no-results">No fighters found.</p>
+          }
+        </div>
       }
-    </div>
+    }
   }
 </div>

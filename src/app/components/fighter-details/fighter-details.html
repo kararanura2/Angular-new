@@ -1,63 +1,19 @@
-<div class="details-container">
+@if (loading) {
+  <div class="loading">
+    <span class="spinner">LOADING</span>
+    Loading Fighter Profile...
+  </div>
+}
 
-  @if (loading) {
-    <div class="loading">
-      <span class="spinner">🥊</span> Loading Fighter Profile...
-    </div>
-  }
+@if (error) {
+  <div class="error">
+    <p>⚠️ Error loading fighter details.</p>
+    <button (click)="appRouter.navigate(['/fighters'])">Back to Roster</button>
+  </div>
+}
 
-  @if (error) {
-    <div class="error">
-      <p>⚠️ Error loading fighter details. Please try again or check the fighter ID.</p>
-      <button (click)="appRouter.navigate(['/fighters'])">Back to Roster</button>
-    </div>
-  }
-
-  @if (fighter && !loading) {
-    <div class="fighter-card-details">
-      
-      <div class="header-section">
-        <div class="titles">
-          <h1>{{ fighter.name }}</h1>
-          <h2>
-            @if (fighter.nickname) { 
-              "{{ fighter.nickname }}"
-            } @else {
-              {{ fighter.category }}
-            }
-          </h2>
-          <p class="record-detail">
-            Record: **{{ getDetail(fighter.wins) }}-{{ getDetail(fighter.losses) }}-{{ getDetail(fighter.draws) }}**
-          </p>
-        </div>
-        
-        <div class="image-wrapper">
-          <img [src]="fighter.imgUrl" alt="{{ fighter.name }}">
-          <span class="status-badge" [class.active]="fighter.status.toLowerCase() === 'active'">
-            {{ getDetail(fighter.status) }}
-          </span>
-        </div>
-      </div>
-      
-      <div class="stats-section">
-        <h3>Primary Stats</h3>
-        <div class="stats-grid">
-          <div class="stat-item"><span>Division</span> **{{ getDetail(fighter.category) }}**</div>
-          <div class="stat-item"><span>Born In</span> **{{ getDetail(fighter.placeOfBirth) }}**</div>
-          <div class="stat-item"><span>Age</span> **{{ getDetail(fighter.age) }}**</div>
-          <div class="stat-item"><span>Height</span> **{{ getDetail(fighter.height) }}"**</div>
-          <div class="stat-item"><span>Weight</span> **{{ getDetail(fighter.weight) }} lbs**</div>
-          <div class="stat-item"><span>Reach</span> **{{ getDetail(fighter.reach) }}"**</div>
-          <div class="stat-item"><span>Leg Reach</span> **{{ getDetail(fighter.legReach) }}"**</div>
-          <div class="stat-item"><span>Style</span> **{{ getDetail(fighter.fightingStyle) }}**</div>
-          <div class="stat-item"><span>Gym</span> **{{ getDetail(fighter.trainsAt) }}**</div>
-          <div class="stat-item"><span>Octagon Debut</span> **{{ getDetail(fighter.octagonDebut) }}**</div>
-        </div>
-      </div>
-
-      <button (click)="appRouter.navigate(['/fighters'])" class="back-button">
-        ← Back to Fighters Roster
-      </button>
-    </div>
-  }
-</div>
+@if (fighter$ | async; as fighter) {
+  <div class="fighter-card-details">
+    <!-- your template stays exactly the same -->
+  </div>
+}

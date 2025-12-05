@@ -1,67 +1,66 @@
-import { Component, OnInit, Inject, inject } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { Fighter } from '../../services/fighter';
-import { FighterCard } from '../fighter-card/fighter-card';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Fighter, FighterService } from '../../services/fighter';
+import { FighterCard } from '../fighter-card/fighter-card';
+import { switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { shareReplay, catchError, of } from 'rxjs';
 
 
 @Component({
   selector: 'app-fighters-list',
-  imports: [CommonModule, FighterCard, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, FighterCard],
   templateUrl: './fighters-list.html',
   styleUrl: './fighters-list.css',
 })
-
-
-
 export class FightersList implements OnInit {
-  // Assuming Fighter is the service class name
-  private fightersService = inject(Fighter); 
+
+  private fighterService = inject(FighterService);
+  private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  // The full list of fighters fetched from the service
-  fighters: Fighter[] = []; 
-  loading = true;
-  searchQuery = ''; // Bound to the input field
+  fighters$: Observable<Fighter[]> | null = null;
+  loading = false;
+  error = false;
+
+  searchQuery = '';
 
   ngOnInit(): void {
-    this.fetchFighters();
-  }
+    this.fighters$ = this.route.queryParamMap.pipe(
+    tap(params => {
+      const q = params.get('q') || '';
+      this.searchQuery = q;
+      this.loading = true;
+    }),
+    switchMap(params => {
+      const q = params.get('q') || '';
+      return this.fighterService.getFighters(q).pipe(
+        catchError(err => {
+          this.error = true;
+          this.loading = false;
+          return of([]);
+        })
+      );
+    }),
+    tap(() => {
+      this.loading = false;
+      this.error = false;
+    }),
+    shareReplay(1)  // <-- VERY IMPORTANT
+  );
+}
 
-  fetchFighters(): void {
-    this.loading = true;
-    this.fightersService.getFighters().subscribe({
-      next: (data) => {
-        // Assuming 'data' is the full array of fighters
-        this.fighters = data; 
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching fighters:', err);
-        this.loading = false;
-      }
+  onSearchChange(value: string) {
+    this.router.navigate([], {
+      queryParams: { q: value },
+      queryParamsHandling: 'merge',
     });
   }
 
-  // 🔎 NEW: Computed Property (Getter) for Filtering
-  get filteredFighters(): Fighter[] {
-    const query = this.searchQuery.toLowerCase().trim();
-    
-    // If the search query is empty, return the full list
-    if (!query) {
-      return this.fighters;
-    }
-
-    // Filter the list based on name or nickname
-    return this.fighters.filter(fighter => 
-      fighter.name.toLowerCase().includes(query) ||
-      (fighter.nickname && fighter.nickname.toLowerCase().includes(query))
-    );
-  }
-
-  goToDetails(fighterId: string): void {
-    this.router.navigate(['/fighters', fighterId]);
+  goToDetails(id: string) {
+    this.router.navigate(['/fighters', id]);
   }
 }

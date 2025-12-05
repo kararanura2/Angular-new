@@ -1,21 +1,20 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 
-export interface Fighter{
-  id: string; // We will extract this from the API object key
+export interface Fighter {
+  id: string;
   name: string;
   nickname: string;
   wins: string;
   losses: string;
   draws: string;
-  category: string; // Weight Division
+  category: string;
   imgUrl: string;
   status: string;
 }
 
 export interface FighterDetail {
-  // Core Fighter Info (also present in the list)
   category: string;
   draws: string;
   imgUrl: string;
@@ -33,33 +32,22 @@ export interface FighterDetail {
   octagonDebut: string;
   reach: string;
   legReach: string;
-  
 }
 
+@Injectable({ providedIn: 'root' })
+export class FighterService {
+  private http = inject(HttpClient);
 
-@Injectable({
-  providedIn: 'root',
-})
-export class Fighter {
-  private http = inject(HttpClient)
-  // list all fighters 
-  private listUrl = 'https://api.octagon-api.com/fighters';
-  // dtails of fighters
-  private detailsUrl = 'https://api.octagon-api.com/fighter';
+  private baseUrl = 'http://localhost:3000';
 
+  getFighters(query?: string): Observable<Fighter[]> {
+    const params: any = {};
+    if (query) params.q = query;
 
-  getFighters(): Observable<Fighter[]>{
-    return this.http.get<Record<string, any>>(this.listUrl).pipe(
-      map(response => {
-        return Object.keys(response).map(key => ({
-          id: key, // The slug becomes the ID (e.g., 'islam-makhachev')
-          ...response[key] // Spread the rest of the data
-        }));
-      })
-    );
+    return this.http.get<Fighter[]>(`${this.baseUrl}/fighters`, { params });
   }
 
   getFighterById(id: string): Observable<FighterDetail> {
-    return this.http.get<FighterDetail>(`${this.detailsUrl}/${id}`);
+    return this.http.get<FighterDetail>(`${this.baseUrl}/fighter/${id}`);
   }
 }

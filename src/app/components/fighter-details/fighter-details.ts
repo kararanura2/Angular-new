@@ -1,60 +1,48 @@
-// src/app/components/fighter-details/fighter-details.ts (Updated)
-
 import { Component, OnInit, inject } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
-import { switchMap } from 'rxjs';
-// FIX: Importing the new, dedicated interface
-import { Fighter, FighterDetail } from '../../services/fighter';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FighterDetail, FighterService } from '../../services/fighter';
+import { switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-fighter-details',
-  standalone: true, 
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './fighter-details.html',
   styleUrl: './fighter-details.css',
 })
-export class FighterDetails implements OnInit{
-  
-  private route = inject(ActivatedRoute); 
-  // FIX: Using the FightersService name, as the imported 'Fighter' was likely the interface
-  private fighterService = inject(Fighter); 
-  public appRouter = inject(Router);         
+export class FighterDetails implements OnInit {
 
-  // FIX: Using the new FighterDetail type
-  fighter: FighterDetail | undefined; 
+  private fighterService = inject(FighterService);
+  private route = inject(ActivatedRoute);
+  public appRouter = inject(Router);
+
+  fighter$: Observable<FighterDetail | null> = of(null);
   loading = true;
   error = false;
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
+    this.fighter$ = this.route.paramMap.pipe(
       switchMap(params => {
         const id = params.get('id');
-        if (id) {
-          this.loading = true;
-          this.error = false;
-          // Call the service method, which now returns FighterDetail
-          return this.fighterService.getFighterById(id);
-        } else {
-          this.appRouter.navigate(['/fighters']); 
-          throw new Error('Fighter ID not found in route.');
+        if (!id) {
+          this.error = true;
+          this.loading = false;
+          return of(null);
         }
+        this.loading = true;
+        this.error = false;
+        return this.fighterService.getFighterById(id);
+      }),
+      switchMap(f => {
+        this.loading = false;
+        return of(f);
       })
-    ).subscribe({
-      next: (data) => {
-        this.fighter = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Failed to load fighter details:', err);
-        this.error = true;
-        this.loading = false;
-      }
-    });
+    );
   }
 
-  // Helper method remains the same
-  public getDetail(value: string | undefined): string {
-    return value && value !== '0' ? value : 'N/A';
+  getDetail(v: string | undefined): string {
+    return v && v !== '0' ? v : 'N/A';
   }
 }
