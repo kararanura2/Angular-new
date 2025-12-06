@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 export interface Fighter {
   id: string;
@@ -40,14 +40,23 @@ export class FighterService {
 
   private baseUrl = 'http://localhost:3000';
 
-  getFighters(query?: string): Observable<Fighter[]> {
+  getFighters(q?: string) {
     const params: any = {};
-    if (query) params.q = query;
+    if (q) params.q = q;
 
-    return this.http.get<Fighter[]>(`${this.baseUrl}/fighters`, { params });
+    return this.http.get<Fighter[]>(`${this.baseUrl}/fighters`, { params })
+      .pipe(
+        catchError(() => {
+          return of([]);  // <-- offline fallback
+        })
+      );
   }
 
-  getFighterById(id: string): Observable<FighterDetail> {
-    return this.http.get<FighterDetail>(`${this.baseUrl}/fighter/${id}`);
+
+  getFighterById(id: string) {
+    return this.http.get<FighterDetail>(`${this.baseUrl}/fighter/${id}`)
+      .pipe(
+        catchError(() => of(null))  // offline fallback
+      );
   }
 }

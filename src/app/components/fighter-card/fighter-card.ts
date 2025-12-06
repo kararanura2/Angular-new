@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Fighter } from '../../services/fighter'; // Assumes Fighter interface is imported from here
+import { Fighter } from '../../../services/fighter'; // Assumes Fighter interface is imported from here
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
 

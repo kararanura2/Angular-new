@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../services/auth-service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './signup.css',
 })
 export class Signup {
+
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -21,32 +22,19 @@ export class Signup {
   errorMessage = '';
   loading = false;
 
-  constructor() {
-    // This now works because currentUser$ is a BehaviorSubject
-    if (this.authService.currentUser$.value) {
-      this.router.navigate(['/profile']);
-    }
-  }
-
-  onSignup(): void {
+  onSignup() {
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match.';
       return;
     }
 
     this.loading = true;
-    this.errorMessage = '';
 
     this.authService.signup(this.email, this.password).subscribe({
-      next: () => {
-        this.router.navigate(['/profile']);
-      },
-      error: (error: string) => {
-        this.errorMessage = error;
+      next: () => this.router.navigate(['/profile']),
+      error: (err) => {
         this.loading = false;
-      },
-      complete: () => {
-        this.loading = false;
+        this.errorMessage = err.code;
       }
     });
   }

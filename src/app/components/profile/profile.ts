@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AuthService, User } from '../../services/auth-service';
+import { AuthService } from '../../../services/auth-service';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 export class Profile {
   private authService = inject(AuthService);
   
-  currentUser$: Observable<User | null> = this.authService.currentUser$;
+  currentUser$ = this.authService.currentUser$;
 
   onLogout(): void {
     this.authService.logout();

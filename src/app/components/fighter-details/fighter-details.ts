@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FighterDetail, FighterService } from '../../services/fighter';
-import { switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import { FightersActions } from '../../states/fighters/fighters.actions';
+import * as FightersSelectors from '../../states/fighters/fighters.selectors';
 
 @Component({
   selector: 'app-fighter-details',
@@ -14,32 +15,22 @@ import { Observable, of } from 'rxjs';
 })
 export class FighterDetails implements OnInit {
 
-  private fighterService = inject(FighterService);
+  private store = inject(Store);
   private route = inject(ActivatedRoute);
   public appRouter = inject(Router);
 
-  fighter$: Observable<FighterDetail | null> = of(null);
-  loading = true;
-  error = false;
+  fighter$ = this.store.select(FightersSelectors.selectSelectedFighter);
+  loading$ = this.store.select(FightersSelectors.selectFighterDetailsLoading);
+  error$ = this.store.select(FightersSelectors.selectFighterDetailsError);
 
   ngOnInit(): void {
-    this.fighter$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        const id = params.get('id');
-        if (!id) {
-          this.error = true;
-          this.loading = false;
-          return of(null);
-        }
-        this.loading = true;
-        this.error = false;
-        return this.fighterService.getFighterById(id);
-      }),
-      switchMap(f => {
-        this.loading = false;
-        return of(f);
-      })
-    );
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (!id) return;
+
+      this.store.dispatch(FightersActions.clearSelectedFighter());
+      this.store.dispatch(FightersActions.loadFighterDetails({ id }));
+    });
   }
 
   getDetail(v: string | undefined): string {

@@ -1,13 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Fighter, FighterService } from '../../services/fighter';
-import { FighterCard } from '../fighter-card/fighter-card';
-import { switchMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { shareReplay, catchError, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
+import { FighterCard } from '../fighter-card/fighter-card';
+
+import { FightersActions } from '../../states/fighters/fighters.actions';
+import * as FightersSelectors from '../../states/fighters/fighters.selectors';
 
 @Component({
   selector: 'app-fighters-list',
@@ -18,40 +18,24 @@ import { shareReplay, catchError, of } from 'rxjs';
 })
 export class FightersList implements OnInit {
 
-  private fighterService = inject(FighterService);
+  private store = inject(Store);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  fighters$: Observable<Fighter[]> | null = null;
-  loading = false;
-  error = false;
-
   searchQuery = '';
 
-  ngOnInit(): void {
-    this.fighters$ = this.route.queryParamMap.pipe(
-    tap(params => {
+  fighters$ = this.store.select(FightersSelectors.selectFightersList);
+  loading$ = this.store.select(FightersSelectors.selectFightersListLoading);
+  error$ = this.store.select(FightersSelectors.selectFightersListError);
+
+  ngOnInit() {
+    this.route.queryParamMap.subscribe(params => {
       const q = params.get('q') || '';
       this.searchQuery = q;
-      this.loading = true;
-    }),
-    switchMap(params => {
-      const q = params.get('q') || '';
-      return this.fighterService.getFighters(q).pipe(
-        catchError(err => {
-          this.error = true;
-          this.loading = false;
-          return of([]);
-        })
-      );
-    }),
-    tap(() => {
-      this.loading = false;
-      this.error = false;
-    }),
-    shareReplay(1)  // <-- VERY IMPORTANT
-  );
-}
+
+      this.store.dispatch(FightersActions.loadFighters({ query: q }));
+    });
+  }
 
   onSearchChange(value: string) {
     this.router.navigate([], {

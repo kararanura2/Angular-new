@@ -1,4 +1,5 @@
 <div class="list-container">
+
   <div class="header">
     <h2>Fighter Roster</h2>
 
@@ -11,26 +12,22 @@
     />
   </div>
 
-  @if (loading) {
+  @if (loading$ | async) {
     <div class="loading">
-      <span class="spinner">🥊</span> Loading Octagon Data...
+      <span class="spinner">🥊</span> Loading fighters...
     </div>
-  } @else {
-    @if (error) {
-      <p class="no-results">⚠ Could not load fighters.</p>
-    } @else {
-      @if (fighters$ | async; as fighters) {
-        <div class="grid">
-          @for (f of fighters; track f.id) {
-            <app-fighter-card
-              [fighter]="f"
-              (cardClicked)="goToDetails($event)">
-            </app-fighter-card>
-          } @empty {
-            <p class="no-results">No fighters found.</p>
-          }
-        </div>
+  } @else if (error$ | async) {
+    <p class="no-results">⚠ Error loading fighters.</p>
+  } @else if (fighters$ | async; as fighters) {
+
+    <div class="grid">
+      @for (f of fighters; track f.id) {
+        <app-fighter-card [fighter]="f" (cardClicked)="goToDetails($event)">
+        </app-fighter-card>
+      } @empty {
+        <p class="no-results">No fighters found.</p>
       }
-    }
+    </div>
+
   }
 </div>
