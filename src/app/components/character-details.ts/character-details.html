@@ -1,0 +1,50 @@
+<div class="details-container">
+  @if (loading$ | async) {
+    <div class="loading"><span class="spinner">🛸</span> Loading profile...</div>
+  } @else if (error$ | async) {
+    <div class="error">
+      <p>⚠ Error loading character details.</p>
+      <button (click)="appRouter.navigate(['/characters'])" class="back-button">Back</button>
+    </div>
+  } @else if (character$ | async; as c) {
+    <div class="fighter-card-details">
+      <div class="header-section">
+        <div class="titles">
+          <h1>{{ c.name }}</h1>
+          <h2>{{ c.species }} : {{ c.gender }}</h2>
+          <p class="record-detail">
+            Status: <strong>{{ c.status }}</strong>  Origin: {{ c.origin?.name }}
+          </p>
+        </div>
+
+        <div class="image-wrapper">
+          <img [src]="c.image" [alt]="c.name" />
+          <span class="status-badge" [class.active]="c.status === 'Alive'">{{ c.status }}</span>
+        </div>
+        <button 
+          class="favorite-btn"
+          [class.active]="isFavorite(c.id)"
+          (click)="toggleFavorite(c)">
+          ❤️
+        </button>
+
+      </div>
+
+      <div class="stats-section">
+        <h3>Profile</h3>
+        <div class="stats-grid">
+          <div class="stat-item"><span>Species: </span> <strong>{{ c.species }}</strong></div>
+          <div class="stat-item"><span>Gender: </span> <strong>{{ c.gender }}</strong></div>
+          <div class="stat-item"><span>Origin: </span> <strong>{{ c.origin?.name }}</strong></div>
+          <div class="stat-item"><span>Location: </span> <strong>{{ c.location?.name }}</strong></div>
+          <div class="stat-item"><span>Episodes: </span> <strong>{{ c.episode.length }}</strong></div>
+          <div class="stat-item"><span>Created: </span> <strong>{{ c.created | date }}</strong></div>
+        </div>
+      </div>
+
+      <button (click)="appRouter.navigate(['/characters'])" class="back-button">← Back to Characters</button>
+    </div>
+
+    
+  }
+</div>

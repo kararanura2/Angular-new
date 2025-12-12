@@ -1,0 +1,15 @@
+<h1>Your Favorites</h1>
+
+<div class="grid">
+  @for (c of favorites; track c.id) {
+    <div class="fav-item">
+      <app-character-card [character]="c"></app-character-card>
+
+      <button class="remove-btn" (click)="remove(c.id)">
+        Remove
+      </button>
+    </div>
+  } @empty {
+    <p>No favorites yet.</p>
+  }
+</div>

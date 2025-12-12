@@ -11,6 +11,7 @@
           "/favicon.ico",
           "/index.html",
           "/manifest.webmanifest",
+          "/offline.html",
           "/*.css",
           "/*.js"
         ]
@@ -34,24 +35,16 @@
 
   "dataGroups": [
     {
-      "name": "api-cache",
+      "name": "rick-and-morty-api",
       "urls": [
-        "http://localhost:3000/fighters",
-        "http://localhost:3000/fighter/*"
+        "https://rickandmortyapi.com/api/**"
       ],
       "cacheConfig": {
-        "maxSize": 50,
-        "maxAge": "1d",
+        "maxSize": 200,
+        "maxAge": "7d",
         "strategy": "freshness",
-        "timeout": "10s"
+        "timeout": "5s"
       }
     }
-  ],
-
-  "navigationUrls": [
-    "/**",
-    "!/**/*.*",
-    "!/**/*__*",
-    "!/**/*__*/**"
   ]
 }

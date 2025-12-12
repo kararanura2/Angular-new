@@ -6,12 +6,12 @@ import { routes } from './app.routes';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-
-import { provideStore } from '@ngrx/store';
+import { favoritesReducer } from './states/favourites/favorites.reducer';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { fightersReducer, fightersFeatureKey } from './states/fighters/fighters.reducer';
-import { FightersEffects } from './states/fighters/fighters.effects';
+import { charactersFeatureKey, charactersReducer } from './states/characters/characters.reducer';
+import { CharactersEffects } from './states/characters/characters.effects';
 import { provideServiceWorker } from '@angular/service-worker';
 
 
@@ -32,9 +32,10 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     
     provideStore({
-      [fightersFeatureKey]: fightersReducer
+      [charactersFeatureKey]: charactersReducer
     }),
-    provideEffects([FightersEffects]),
+    provideState('favorites', favoritesReducer),
+    provideEffects([CharactersEffects]),
     provideStoreDevtools(), provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'

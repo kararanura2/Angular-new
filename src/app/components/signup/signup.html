@@ -1,65 +1,44 @@
-<div class="auth-container">
-  <div class="auth-card signup-card">
+<div class="auth-wrapper">
+  <div class="auth-card">
+
     <div class="header">
-      <h2>CREATE FIGHTER PROFILE</h2>
-      <p>SECURE YOUR PLACE IN THE OCTAGON</p>
+      <h2>Create Portal Profile</h2>
+      <p>Join the Multiverse Registry</p>
     </div>
 
     <form (ngSubmit)="onSignup()" #signupForm="ngForm">
-      
+
       @if (errorMessage) {
         <div class="error-banner">{{ errorMessage }}</div>
       }
 
-      <div class="form-group">
-        <label for="email">OCTAGON EMAIL</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-          [(ngModel)]="email" 
-          required 
-          autocomplete="off"
-          placeholder="champion@ufc.com"
-        >
+      <div class="group">
+        <label>Email</label>
+        <input type="email" name="email" [(ngModel)]="email" required placeholder="rick@c-137.space">
       </div>
 
-      <div class="form-group">
-        <label for="password">PASSCODE</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          [(ngModel)]="password" 
-          required 
-          placeholder="Minimum 6 characters"
-        >
+      <div class="group">
+        <label>Password</label>
+        <input type="password" name="password" [(ngModel)]="password" required placeholder="Minimum 6 characters">
       </div>
 
-      <div class="form-group">
-        <label for="confirmPassword">CONFIRM PASSCODE</label>
-        <input 
-          type="password" 
-          id="confirmPassword" 
-          name="confirmPassword" 
-          [(ngModel)]="confirmPassword" 
-          required 
-          placeholder="RE-ENTER PASSCODE"
-        >
+      <div class="group">
+        <label>Confirm Password</label>
+        <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" required>
       </div>
 
       <button type="submit" [disabled]="!signupForm.valid || loading">
         @if (loading) {
-          <span class="spinner"></span>
-          <span>INITIATING...</span>
+          <span class="spinner"></span> INITIATING...
         } @else {
-          <span>SIGN UP</span>
+          SIGN UP
         }
       </button>
     </form>
-    
-    <div class="switch-auth">
+
+    <div class="switch">
       Already have an account? <a [routerLink]="['/login']">Log In</a>
     </div>
+
   </div>
 </div>

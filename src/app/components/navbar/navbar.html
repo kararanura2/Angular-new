@@ -1,38 +1,55 @@
 <header class="navbar">
   <div class="logo">
-    <h1><a [routerLink]="['/']">UFC Fan-Service</a></h1>
+    <h1>
+      <a [routerLink]="['/']">Rick & Morty Portal</a>
+    </h1>
   </div>
-  
+
   <nav>
     <ul>
+
       <li>
-        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          Home
+        </a>
       </li>
+
       <li>
-        <a [routerLink]="['/fighters']" routerLinkActive="active">Fighters</a>
+        <a [routerLink]="['/characters']" routerLinkActive="active">
+          Characters
+        </a>
       </li>
+
       <li>
-        <a [routerLink]="['/about']" routerLinkActive="active">About</a>
+          <a [routerLink]="['/favorites']" routerLinkActive="active">Favorites</a>
       </li>
-      
-      <!-- AUTH LINKS TOGGLE -->
+
+      <li>
+        <a [routerLink]="['/about']" routerLinkActive="active">
+          About
+        </a>
+      </li>
+
       @if (authService.currentUser$ | async; as user) {
-        <!-- LOGGED IN STATE: Show Profile and Logout -->
         <li>
           <a [routerLink]="['/profile']" routerLinkActive="active">Profile</a>
         </li>
         <li>
-          <a class="logout-link" (click)="logout()">Logout</a>
+          <a class="logout" (click)="logout()">Logout</a>
         </li>
+        
+        <button class="notify-btn" (click)="enableNotifications()">Enable Notifications</button>
+
       } @else {
-        <!-- GUEST STATE: Show Login and Signup -->
         <li>
           <a [routerLink]="['/login']" routerLinkActive="active">Login</a>
         </li>
         <li>
           <a [routerLink]="['/signup']" routerLinkActive="active">Signup</a>
         </li>
+
       }
+
     </ul>
   </nav>
 </header>

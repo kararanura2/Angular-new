@@ -1,77 +1,51 @@
-/* src/app/shared/components/navbar/navbar.css */
+/* NAVBAR */
 
 .navbar {
-  /* Dark, Solid Background */
-  background-color: #f62828; 
-  padding: 10px 40px;
+  background-color: #0d1b2a;
+  padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.logo h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 900;
+  border-bottom: 2px solid #14ffd0;
+  box-shadow: 0 4px 20px rgba(0,255,200,0.1);
 }
 
 .logo a {
-  color: #f7eded; 
+  color: #14ffd0;
+  font-size: 1.8rem;
   text-decoration: none;
-  transition: color 0.3s;
-  text-transform: uppercase;
+  font-weight: 900;
+  text-shadow: 0 0 8px rgba(20,255,200,0.6);
 }
 
 nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
-}
-
-nav ul li {
-  margin-left: 25px;
+  gap: 25px;
+  list-style: none;
 }
 
 nav ul li a {
-  color: #fff; 
+  color: #e5e5e5;
+  font-weight: 600;
+  letter-spacing: 0.5px;
   text-decoration: none;
-  font-weight: bold;
-  padding: 5px 0;
-  position: relative;
-  transition: color 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  padding-bottom: 3px;
+  transition: 0.3s;
 }
 
-/* Specific style for the Logout action to ensure it looks clickable */
+nav ul li a:hover,
+nav ul li a.active {
+  color: #14ffd0;
+  border-bottom: 2px solid #14ffd0;
+  text-shadow: 0 0 6px rgba(20,255,200,0.7);
+}
+
 .logout-link {
   cursor: pointer;
+  color: #ff7575 !important;
+  transition: 0.3s;
 }
 
-/* Hover and Active State Styling */
-nav ul li a:hover, .logout-link:hover {
-  color: #191818; /* Dark on hover for contrast against red */
-}
-
-nav ul li a.active {
-  color: #191818;
-}
-
-/* Underline effect for active/hover links */
-nav ul li a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 3px;
-  bottom: -5px;
-  left: 0;
-  background-color: #434139;
-  transition: width 0.3s ease-out;
-}
-
-nav ul li a:hover::after,
-nav ul li a.active::after {
-  width: 100%;
+.logout-link:hover {
+  color: #ff3b3b !important;
 }

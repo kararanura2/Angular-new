@@ -1,0 +1,134 @@
+:host {
+  --bg-main: #0d1b2a;
+  --bg-card: #1b263b;
+  --accent: #14ffd0;
+  --text: #e5e5e5;
+}
+
+.details-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.fighter-card-details {
+  background-color: var(--bg-card);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,255,200,0.1);
+  border: 1px solid rgba(20,255,200,0.25);
+}
+
+.header-section {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.header-section img {
+  width: 260px;
+  border-radius: 12px;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 18px rgba(20,255,200,0.4);
+}
+
+.titles h1 {
+  color: #fff;
+  font-size: 2.6rem;
+  font-weight: 900;
+}
+
+.titles h2 {
+  color: var(--accent);
+  font-size: 1.4rem;
+  margin-top: 5px;
+}
+
+.record-detail {
+  color: #bdbdbd;
+  margin-top: 12px;
+  font-size: 1rem;
+}
+
+.status-badge {
+  position: absolute;
+  top: 0;     /* was -10 → pushes it outside */
+  right: 10px;   /* was -10 → pushes it outside */
+  padding: 6px 14px;
+  background-color: var(--accent);
+  border-radius: 8px;
+  font-weight: 700;
+  color: #003a29;
+}
+
+.active{
+  position: relative;
+  top: -30px;     /* was -10 → pushes it outside */
+  right: -105px;   /* was -10 → pushes it outside */
+  padding: 6px 14px;
+  background-color: var(--accent);
+  border-radius: 8px;
+  font-weight: 700;
+  color: #003a29;
+}
+
+
+.stats-section {
+  margin-top: 35px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.stat-item {
+  background: #0f2538;
+  padding: 16px;
+  border-radius: 10px;
+  color: var(--text);
+  border-left: 4px solid var(--accent);
+  font-size: 1rem;
+}
+
+.back-button {
+  margin-top: 40px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--accent);
+  font-weight: 700;
+  color: #003a29;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-button:hover {
+  opacity: 0.85;
+}
+
+
+.favorite-btn {
+  background: linear-gradient(to right, #14ffd0, #00d4a8);
+  border: none;
+  color: #003a29;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(20,255,208,0.4);
+  transition: 0.2s;
+  margin-top: 15px;
+}
+
+/* .favorite-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+} */
+
+.favorite-btn.active {
+  background: #ff4d4d;
+}
+

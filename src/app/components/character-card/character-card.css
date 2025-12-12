@@ -1,0 +1,143 @@
+:host {
+  --bg-dark: #0d1b2a;
+  --bg-card: #1b263b;
+  --text: #e5e5e5;
+  --accent: #14ffd0;
+  --accent-dark: #00d4a8;
+  --danger: #ff4d4d;
+  --unknown: #8d8d8d;
+}
+
+/* LINK WRAPPER */
+.card-link {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+/* CARD */
+.card {
+  background-color: var(--bg-card);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  transition: transform .25s ease, box-shadow .25s ease;
+  border: 1px solid rgba(20, 255, 208, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 28px rgba(20, 255, 208, 0.28);
+}
+
+/* IMAGE */
+.image-container {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* STATUS BADGE */
+.details-status-badge {
+  position: relative;
+  bottom: -12px;
+  right: -12px;
+  padding: 8px 14px;
+  background-color: var(--accent);
+  color: #003a29;
+  font-weight: 800;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-shadow: 0 0 10px rgba(20,255,200,0.4);
+}
+
+
+.status-badge.alive {
+  background-color: var(--accent);
+  color: #003a29;
+}
+
+.status-badge.dead {
+  background-color: var(--danger);
+  color: white;
+}
+
+/* INFO SECTION */
+.info {
+  padding: 18px 20px;
+  color: var(--text);
+}
+
+.name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+/* Meta chips */
+.meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.location {
+  font-size: 0.9rem;
+  color: #c9d6df;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* DETAILS BUTTON */
+.details-button {
+  background: linear-gradient(to right, var(--accent), var(--accent-dark));
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #003a2c;
+  transition: opacity .2s ease, transform .15s ease;
+}
+
+.details-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+
+.card-wrapper {
+  position: relative;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+}
+
+
+.favorite-btn.active {
+  background: #ff4d4d;
+}
+
+

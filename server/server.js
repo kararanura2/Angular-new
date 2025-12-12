@@ -1,70 +1,48 @@
 const express = require("express");
-const axios = require("axios");
+const webpush = require("web-push");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
-const PORT = 3000;
+const VAPID_PUBLIC = "BEr_Y7ZgrCC4ajt4b33CxeuMGRQFU0ALIZ4MX6vqPMMV42KFteuDTtDtwGZDKSqcGhieH9E_mZXxdrVdLkw3F3E";
+const VAPID_PRIVATE = "WMWeGrw18nuVr4lWVoQN5FnTSm1dfGEAAXZV-vLxMfo";
 
-// Octagon API URL
-const OCTAGON_URL = "https://api.octagon-api.com/fighters";
+webpush.setVapidDetails(
+  "mailto:test@example.com",
+  VAPID_PUBLIC,
+  VAPID_PRIVATE
+);
 
-// Cache to avoid re-fetching 150+ fighters every search
-let cachedFighters = null;
+webpush.sendNotification(subscription, JSON.stringify({
+  title: "Test Notification",
+  body: "If you see this, push works"
+}));
+ 
 
-// Utility: fetch + cache fighters
-async function loadFighters() {
-  if (cachedFighters) return cachedFighters;
+let subscriptions = [];
 
-  const { data } = await axios.get(OCTAGON_URL);
-
-  // Transform object → array with id field
-  const list = Object.keys(data).map(key => ({
-    id: key,
-    ...data[key],
-  }));
-
-  cachedFighters = list;
-  return list;
-}
-
-// MAIN ENDPOINT → supports ?q= search
-app.get("/fighters", async (req, res) => {
-  try {
-    const q = (req.query.q || "").toLowerCase().trim();
-    const fighters = await loadFighters();
-
-    // If no query, return full list
-    if (!q) {
-      return res.json(fighters);
-    }
-
-    // Filter by name or nickname
-    const filtered = fighters.filter(f => 
-      f.name.toLowerCase().includes(q) ||
-      (f.nickname && f.nickname.toLowerCase().includes(q))
-    );
-
-    return res.json(filtered);
-
-  } catch (err) {
-    console.error("Server error:", err);
-    res.status(500).json({ error: "Server error fetching fighters." });
-  }
+app.post("/subscribe", (req, res) => {
+  const sub = req.body;
+  subscriptions.push(sub);
+  res.status(201).json({});
+  console.log("New subscription saved.");
 });
 
-// DETAILS ENDPOINT
-app.get("/fighter/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const { data } = await axios.get(`https://api.octagon-api.com/fighter/${id}`);
-    res.json(data);
-  } catch (err) {
-    res.status(404).json({ error: "Fighter not found" });
-  }
+app.get("/sendNotification", async (req, res) => {
+  const payload = JSON.stringify({
+    title: "Rick & Morty Notification!",
+    body: "A new episode or update is available!",
+    icon: "/icons/icon-192.png"
+  });
+
+  subscriptions.forEach(sub => {
+    webpush.sendNotification(sub, payload).catch(err => console.error(err));
+  });
+
+  res.send("Notifications sent.");
 });
 
-app.listen(PORT, () => {
-  console.log(`🔥 UFC Proxy Server running on http://localhost:${PORT}`);
-});
+app.listen(3000, () => console.log("Server running on port 3000"));

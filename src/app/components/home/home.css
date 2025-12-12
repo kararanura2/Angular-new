@@ -1,106 +1,44 @@
-/* General Layout */
-.home-container {
-    min-height: 100vh;
-    background-color: #1f2937; /* Dark Gray Background */
-    color: white;
+.hero {
+  background: linear-gradient(180deg,#071020 0%, #0d2433 60%);
+  padding: 80px 20px;
+  border-bottom: 4px solid #14ffd0;
 }
 
-/* Hero Section Styling */
-.hero-section {
-    position: relative;
-    padding: 8rem 2rem;
-    text-align: center;
-    /* REMOVED: Background image URL and complex overlay */
-    background: linear-gradient(135deg, #1f2937 0%, #374151 100%); /* Simple, visible dark gradient */
-    background-size: cover;
-    border-bottom: 5px solid #b91c1c; /* Red accent line */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.hero-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  color: #eafcf7;
+  text-align: left;
 }
 
-.hero-content {
-    max-width: 900px;
-    margin: 0 auto;
-    z-index: 10;
+.hero h1 {
+  font-size: 3.2rem;
+  color: #14ffd0;
+  font-weight: 900;
+  margin-bottom: 10px;
+  text-shadow: 0 0 12px rgba(20,255,208,0.35);
 }
 
-.welcome-text {
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    color: #f87171; /* Light Red */
+.lead {
+  color: #cfeee6;
+  margin-bottom: 24px;
+  font-size: 1.15rem;
 }
 
-/* CTA Buttons */
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
+.hero-actions a.cta {
+  background: linear-gradient(90deg,#14ffd0,#00b39a);
+  color: #002a24;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 800;
+  margin-right: 12px;
+  text-decoration: none;
 }
 
-.cta-button.primary {
-    background-color: #b91c1c; /* Primary Red */
-    color: white;
-    box-shadow: 0 4px 8px rgba(185, 28, 28, 0.4);
-}
-
-.cta-button.primary:hover {
-    background-color: #991b1b;
-    transform: translateY(-2px);
-}
-
-.cta-button.secondary {
-    background-color: transparent;
-    border: 2px solid #6b7280; /* Gray Border */
-    color: #d1d5db;
-}
-
-.cta-button.secondary:hover {
-    border-color: #f87171; /* Light Red Hover */
-    color: #f87171;
-    background-color: rgba(248, 113, 113, 0.1);
-}
-
-
-/* Feature Section Styling */
-.feature-section {
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 2.5rem;
-    color: #f87171;
-}
-
-.feature-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
-
-.feature-card {
-    background-color: #374151; /* Darker card background */
-    padding: 1.5rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    border-left: 5px solid #b91c1c; /* Red accent */
-}
-
-.feature-card h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: white;
-}
-
-.feature-card p {
-    color: #d1d5db;
+.hero-actions a.ghost {
+  color: #cfeee6;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
 }

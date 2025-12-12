@@ -1,0 +1,129 @@
+.list-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h2 {
+  color: #14ffd0;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-shadow: 0 0 10px rgba(20,255,200,0.5);
+}
+
+.search-input {
+  background: #0d1b2a; /* deep sci-fi navy */
+  border: 2px solid #14ffd0; /* neon aqua */
+  color: #eafffa;
+  padding: 12px 16px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 10px;
+  outline: none;
+  transition: 0.25s ease;
+  box-shadow: 0 0 6px rgba(20, 255, 208, 0.25);
+}
+
+.search-input::placeholder {
+  color: #a7eee3;
+  opacity: 0.7;
+}
+
+.search-input:focus {
+  border-color: #00e8c0;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.45);
+  transform: translateY(-2px);
+}
+
+
+.search-input:hover,
+.search-input:focus {
+  border-color: #00ffbf;
+  box-shadow: 0 0 12px rgba(0,255,200,0.4);
+}
+
+.grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 25px;
+}
+
+.loading {
+  text-align: center;
+  color: #14ffd0;
+  margin-top: 80px;
+  font-size: 1.5rem;
+}
+
+
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-btn {
+  background: linear-gradient(90deg, #14ffd0, #00b39a);
+  color: #002520;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.22s ease-in-out;
+  box-shadow: 0 0 8px rgba(20, 255, 208, 0.35);
+}
+
+.page-btn:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 0 14px rgba(20, 255, 208, 0.55);
+}
+
+.page-btn:disabled {
+  background: rgba(255, 255, 255, 0.15);
+  color: #777;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.page-info {
+  color: #cfeee6;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.search-container {
+  margin: 20px 0 30px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-input {
+  width: 280px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 10px;
+  outline: none;
+
+  background-color: #0b1220;
+  color: #14ffd0;
+  border: 2px solid rgba(20, 255, 200, 0.4);
+
+  box-shadow: 0 0 12px rgba(20, 255, 200, 0.25);
+  transition: 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: #7ee8d8;
+}
+
+.search-input:focus {
+  border-color: #14ffd0;
+  box-shadow: 0 0 16px rgba(20, 255, 200, 0.4);
+}

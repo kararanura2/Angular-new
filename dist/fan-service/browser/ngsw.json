@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1765008709431,
+  "timestamp": 1765532441805,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -11,9 +11,10 @@
         "ignoreVary": true
       },
       "urls": [
+        "/custom-sw.js",
         "/favicon.ico",
         "/index.html",
-        "/main-6BOODTWA.js",
+        "/main-PBGLEXHU.js",
         "/manifest.webmanifest",
         "/polyfills-5CFQRCPP.js",
         "/styles-5INURTSO.css"
@@ -42,15 +43,14 @@
   ],
   "dataGroups": [
     {
-      "name": "api-cache",
+      "name": "rick-and-morty-api",
       "patterns": [
-        "http:\\/\\/localhost:3000\\/fighters",
-        "http:\\/\\/localhost:3000\\/fighter\\/[^/]*"
+        "https:\\/\\/rickandmortyapi\\.com\\/api\\/.*"
       ],
       "strategy": "freshness",
-      "maxSize": 50,
-      "maxAge": 86400000,
-      "timeoutMs": 10000,
+      "maxSize": 200,
+      "maxAge": 604800000,
+      "timeoutMs": 5000,
       "cacheQueryOptions": {
         "ignoreVary": true
       },
@@ -58,6 +58,7 @@
     }
   ],
   "hashTable": {
+    "/custom-sw.js": "d19d992e88f313e792afb42b8ac27b465eb746c1",
     "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
     "/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
     "/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
@@ -67,8 +68,8 @@
     "/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
     "/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
     "/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
-    "/index.html": "e94839f1204b471f62b1c5b275ff9f6a525dfb90",
-    "/main-6BOODTWA.js": "1a9297175a5a3f796e6216ade4af98411bfa15cf",
+    "/index.html": "d9d8054d5112c87ba0e12e03e44098b35f231c5a",
+    "/main-PBGLEXHU.js": "ef0fb0595b767de71f3d8ca60394deb457bd80b6",
     "/manifest.webmanifest": "7b1acda89582260f0d27a7716f8d423d5c73e5c3",
     "/polyfills-5CFQRCPP.js": "f2241e9a25858f895ce299d15f6f22e849e2fd72",
     "/styles-5INURTSO.css": "da39a3ee5e6b4b0d3255bfef95601890afd80709"

@@ -1,62 +1,26 @@
-/* src/app/features/about/about.css */
-
-/* Define component-local variables (optional but good practice) */
-:host {
-    --color-primary-red: #f00;
-    --color-secondary-gold: #ffc400;
-    --color-text-light: #fff;
-    --color-text-muted: #aaa;
+.about {
+  padding: 48px 20px;
+  background: #071020;
+  color: #eafcf7;
 }
 
-.about-container {
-  padding: 40px;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-  /* 💥 FIX: Set default container text color to ensure visibility */
-  color: var(--color-text-light); 
+.about .container {
+  max-width: 900px;
+  margin: auto;
 }
 
-.about-container h2 {
-  font-size: 2.5rem;
-  border-bottom: 4px solid var(--color-primary-red); 
-  padding-bottom: 10px;
-  margin-bottom: 30px;
-  color: var(--color-text-light); /* Ensure heading is white */
+.about h2 {
+  color: #14ffd0;
+  font-size: 2rem;
+  margin-bottom: 12px;
 }
 
-.about-container p {
-  font-size: 1.1rem;
-  color: var(--color-text-muted); /* Muted light color for readability */
+.about p, .about li {
+  color: #cfeee6;
+  line-height: 1.6;
 }
 
-section {
-  margin-top: 40px;
-  padding-left: 20px;
-  border-left: 5px solid var(--color-secondary-gold);
-}
-
-section h3 {
-  color: var(--color-text-light); /* Ensure subheading is white */
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-}
-
-.project-details ul {
-  list-style: none;
-  padding: 0;
-}
-
-.project-details ul li {
-  background-color: #222;
-  padding: 10px;
-  margin-bottom: 8px;
-  border-radius: 4px;
-  border-left: 3px solid var(--color-primary-red);
-  /* 💥 FIX: Ensure list item text is visible */
-  color: var(--color-text-light);
-}
-
-.project-details ul li strong {
-  color: var(--color-secondary-gold);
+.about ul {
+  margin-left: 18px;
+  margin-bottom: 18px;
 }
